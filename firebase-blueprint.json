@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A fashion product in the catalogue",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Display name of the product" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "price": { "type": "number", "description": "Regular price in NGN" },
+        "salePrice": { "type": "number", "description": "Optional discounted price" },
+        "bulkPrice": { "type": "number", "description": "Price per unit for bulk orders" },
+        "bulkQuantity": { "type": "number", "description": "Minimum quantity for bulk price" },
+        "sku": { "type": "string", "description": "Stock Keeping Unit" },
+        "stockQuantity": { "type": "number", "description": "Available items in stock" },
+        "images": { "type": "array", "description": "List of image URLs" },
+        "sizes": { "type": "array", "description": "Available sizes" },
+        "colors": { "type": "array", "description": "Available colors" },
+        "status": { "type": "string", "enum": ["Published", "Draft", "Out of Stock"] },
+        "category": { "type": "string", "description": "Category name" },
+        "gender": { "type": "string", "enum": ["Men", "Women", "Unisex", "Children"] },
+        "brand": { "type": "string", "description": "Brand name" },
+        "createdAt": { "type": "number", "description": "Creation timestamp" },
+        "updatedAt": { "type": "number", "description": "Last update timestamp" }
+      },
+      "required": ["name", "price", "category", "status"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "A product category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Category name" }
+      },
+      "required": ["name"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Store products"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Store categories"
+    }
+  }
+}

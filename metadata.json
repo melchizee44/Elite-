@@ -1,0 +1,6 @@
+{
+  "name": "Elite Collections",
+  "description": "A premium fashion e-commerce website specializing in high-quality shoes, bags, and clothing for men, women, and children.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
