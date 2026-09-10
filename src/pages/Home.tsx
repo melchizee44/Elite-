@@ -33,7 +33,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base md:text-lg text-gray-600 max-w-lg leading-relaxed"
             >
-              Discover quality shoes, bags and clothing for men, women and children, carefully selected for style, comfort and everyday confidence.
+              Discover quality electronics, shoes, bags and clothing for men, women and children, carefully selected for style, comfort and everyday confidence.
             </motion.p>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -141,11 +141,12 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
+              { title: 'PHONES', description: 'Stay connected with the latest tech.', image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Phones' },
+              { title: 'LAPTOPS', description: 'Powerful computing for work and play.', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Laptops' },
               { title: 'SHOES', description: 'Step into quality and style.', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Shoes' },
               { title: 'BAGS', description: 'Complete your look with the right bag.', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Bags' },
               { title: 'CLOTHES', description: 'Simple fashion for every occasion.', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Clothes' },
               { title: 'CANVAS', description: 'Comfortable footwear for daily life.', image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=800&auto=format&fit=crop', link: '/shop?category=Canvas' },
-              { title: 'SCHOOL', description: 'Durable school shoes for children.', image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?q=80&w=800&auto=format&fit=crop', link: '/shop?category=School%20Children' },
             ].map((cat, i) => (
               <Link 
                 key={i}

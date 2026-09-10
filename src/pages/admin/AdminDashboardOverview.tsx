@@ -11,6 +11,8 @@ import {
   CloudUpload,
   CheckCircle2,
   RefreshCw,
+  Smartphone,
+  Laptop
 } from 'lucide-react';
 import { useProducts } from '@/src/context/ProductContext';
 import { cn } from '@/src/lib/utils';
@@ -57,6 +59,8 @@ export default function AdminDashboardOverview() {
 
   const stats = [
     { label: 'TOTAL CATALOGUE', value: products.length, icon: Package, color: 'blue', trend: '+5%' },
+    { label: 'PHONES', value: products.filter(p => p.category === 'Phones').length, icon: Smartphone, color: 'indigo', trend: '+15%' },
+    { label: 'LAPTOPS', value: products.filter(p => p.category === 'Laptops').length, icon: Laptop, color: 'purple', trend: '+10%' },
     { label: 'FOOTWEAR', value: products.filter(p => p.category === 'Shoes').length, icon: ShoppingBag, color: 'orange', trend: '+12%' },
     { label: 'ACCESSORIES', value: products.filter(p => p.category === 'Bags').length, icon: Briefcase, color: 'purple', trend: '+2%' },
     { label: 'APPAREL', value: products.filter(p => p.category === 'Clothes').length, icon: Package, color: 'green', trend: '+8%' },

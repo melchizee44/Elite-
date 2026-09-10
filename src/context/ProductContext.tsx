@@ -152,7 +152,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
         setCategories(mappedCategories);
       } else {
         const saved = localStorage.getItem('elite_categories');
-        setCategories(saved ? JSON.parse(saved) : ['Shoes', 'Bags', 'Clothes', 'Canvas', 'School Children', 'Sport Shoes']);
+        setCategories(saved ? JSON.parse(saved) : ['Shoes', 'Bags', 'Clothes', 'Canvas', 'School Children', 'Sport Shoes', 'Phones', 'Laptops']);
       }
     }, (error) => {
       console.error('Firestore onSnapshot error (categories):', error);
@@ -180,8 +180,16 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
   const addProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
     const productsPath = 'products';
     try {
+      // Clean undefined fields for Firestore
+      const cleanedData = Object.entries(productData).reduce((acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key as keyof typeof acc] = value;
+        }
+        return acc;
+      }, {} as any);
+
       const newProduct = {
-        ...productData,
+        ...cleanedData,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       };
@@ -195,9 +203,17 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
   const updateProduct = async (id: string, updates: Partial<Product>) => {
     const productPath = `products/${id}`;
     try {
+      // Clean undefined fields for Firestore
+      const cleanedUpdates = Object.entries(updates).reduce((acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key as keyof typeof acc] = value;
+        }
+        return acc;
+      }, {} as any);
+
       const docRef = doc(db, 'products', id);
       await updateDoc(docRef, {
-        ...updates,
+        ...cleanedUpdates,
         updatedAt: Date.now()
       });
     } catch (e) {
@@ -264,7 +280,8 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
       const existingNames = new Set(prodSnap.docs.map(d => d.data().name));
 
       // 1. Sync Categories
-      for (const cat of categories) {
+      const allCategories = Array.from(new Set([...categories, 'Shoes', 'Bags', 'Clothes', 'Canvas', 'School Children', 'Sport Shoes', 'Phones', 'Laptops']));
+      for (const cat of allCategories) {
         if (!existingCatNames.has(cat)) {
           const newDocRef = doc(collection(db, 'categories'));
           batch.set(newDocRef, { name: cat });
@@ -272,12 +289,16 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
       }
 
       // 2. Sync Products
-      for (const prod of products) {
+      const allProducts = [...products, ...DEMO_PRODUCTS];
+      for (const prod of allProducts) {
         if (!existingSkus.has(prod.sku) && !existingNames.has(prod.name)) {
           const { id, ...prodData } = prod; // Remove local ID
           const newDocRef = doc(collection(db, 'products'));
           batch.set(newDocRef, prodData);
           count++;
+          // Prevent duplicate entries in the same batch
+          existingSkus.add(prod.sku);
+          existingNames.add(prod.name);
         }
       }
       

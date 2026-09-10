@@ -49,7 +49,7 @@ export default function Shop() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-2">
               <h1 className="text-4xl font-bold text-[#2D2D2D]">SHOP ELITE</h1>
-              <p className="text-gray-500">Explore our collection of quality shoes, bags and clothing for everyone.</p>
+              <p className="text-gray-500">Explore our collection of quality electronics, shoes, bags and clothing for everyone.</p>
             </div>
             <div className="relative w-full md:w-96">
               <input 
